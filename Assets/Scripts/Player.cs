@@ -15,4 +15,22 @@ public class Player : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	void OnTriggerEnter2D (Collider2D other) {
+		// Check the collision.
+		if (other.gameObject.tag == "Coin") {
+			this.OnCoinTrigger (other.gameObject);
+		}
+	}
+
+	void OnCoinTrigger (GameObject coin) {
+		// Add coin point.
+		this.coins = this.coins + 1;
+
+		// Play coin collect sound.
+		// TODO
+
+		// Get rid of coin object.
+		Destroy(coin);
+	}
 }
