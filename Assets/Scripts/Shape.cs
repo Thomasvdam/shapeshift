@@ -10,6 +10,42 @@ public class Shape : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+	}
+
+	void Move (float x, float y) {
+
+	}
+
+	void SquarePressed () {
+
+	}
+
+	void TrianglePressed () {
+
+	}
+
+	void CirclePressed () {
+
+	}
+
+	void CrossPressed () {
+
+	}
+
+	void LeftBumperPressed () {
+
+	}
+
+	void LeftTriggerPressed () {
+
+	}
+
+	void RightBumperPressed () {
+
+	}
+
+	void RightTriggerPressed () {
+
 	}
 }
