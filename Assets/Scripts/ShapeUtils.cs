@@ -2,7 +2,7 @@
 using System.Collections;
 
 public static class ShapeUtils {
-	public static bool IsOnGround (GameObject player) {
+	public static bool IsOnPlatform (GameObject player) {
 		RaycastHit2D hit = Physics2D.Raycast (player.transform.position, Vector2.down, GetDistanceToGround(player) + 0.1f);
 
 		if (hit.collider && hit.collider.gameObject.tag == "Platform") {

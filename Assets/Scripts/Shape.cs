@@ -4,6 +4,9 @@ using System.Collections;
 public class Shape : MonoBehaviour {
 
 	public float jumpModifier;
+	public float movementSpeed;
+
+	private Vector2 direction;
 
 	// Use this for initialization
 	void Start () {
@@ -12,11 +15,26 @@ public class Shape : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		this.MoveShape ();
+
+		// Allow room for custom class code on Update
+		this.CustomUpdate ();
+	}
+
+	public void MoveShape () {
+		// Move character sideways only when joystick is used.
+		if (Mathf.Abs (direction.x) > 0.2f) {
+			Vector2 velocity = this.GetComponent<Rigidbody2D> ().velocity;
+			this.GetComponent<Rigidbody2D> ().velocity = new Vector2 (direction.x * movementSpeed * Time.deltaTime, velocity.y);
+		}
+	}
+
+	public void CustomUpdate () {
 
 	}
 
 	public void Move (float x, float y) {
-		Debug.Log ("x: " + x + ", y: " + y);
+		this.direction = new Vector2 (x, y);
 	}
 
 	public void SquarePressed () {
@@ -32,7 +50,7 @@ public class Shape : MonoBehaviour {
 	}
 
 	public void CrossPressed () {
-		if (ShapeUtils.IsOnGround (this.gameObject)) {
+		if (ShapeUtils.IsOnPlatform (this.gameObject)) {
 			this.GetComponent<Rigidbody2D> ().AddForce (Vector3.up * jumpModifier * Time.deltaTime);
 		}
 	}
