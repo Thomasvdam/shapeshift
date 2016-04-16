@@ -14,7 +14,7 @@ public class Shape : MonoBehaviour {
 	}
 
 	public void Move (float x, float y) {
-
+		Debug.Log ("x: " + x + ", y: " + y);
 	}
 
 	public void SquarePressed () {

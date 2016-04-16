@@ -33,7 +33,7 @@ public class Controller : MonoBehaviour {
 		checkRightTriggerButton ();
 	}
 
-	private static string getJoystickButton(string button) {
+	private string getJoystickButton(string button) {
 		return CONTROLLER_PREFIX + mId + button;
 	}
 	
@@ -72,25 +72,25 @@ public class Controller : MonoBehaviour {
 
 	private void checkLeftBumperButton() {
 		if (Input.GetKeyDown (getJoystickButton(LEFT_BUMPER))) {
-			gameObject.GetComponent<Shape>().TrianglePressed();
+			gameObject.GetComponent<Shape>().LeftBumperPressed();
 		}
 	}
 
 	private void checkRightBumperButton() {
 		if (Input.GetKeyDown (getJoystickButton(RIGHT_BUMPER))) {
-			gameObject.GetComponent<Shape>().TrianglePressed();
+			gameObject.GetComponent<Shape>().RightBumperPressed();
 		}
 	}
 
 	private void checkLeftTriggerButton() {
 		if (Input.GetKeyDown (getJoystickButton(LEFT_TRIGGER))) {
-			gameObject.GetComponent<Shape>().TrianglePressed();
+			gameObject.GetComponent<Shape>().LeftTriggerPressed();
 		}
 	}
 
 	private void checkRightTriggerButton() {
 		if (Input.GetKeyDown (getJoystickButton(RIGHT_TRIGGER))) {
-			gameObject.GetComponent<Shape>().TrianglePressed();
+			gameObject.GetComponent<Shape>().RightTriggerPressed();
 		}
 	}
 }
