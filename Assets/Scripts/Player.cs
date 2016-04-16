@@ -20,6 +20,8 @@ public class Player : MonoBehaviour {
 		// Check the collision.
 		if (other.gameObject.tag == "Coin") {
 			this.OnCoinTrigger (other.gameObject);
+		} else if (other.gameObject.tag == "Border") {
+			this.OnBorderTrigger ();
 		}
 	}
 
@@ -32,5 +34,16 @@ public class Player : MonoBehaviour {
 
 		// Get rid of coin object.
 		Destroy(coin);
+	}
+
+	void OnBorderTrigger () {
+		// Increment deaths.
+		this.deaths = this.deaths + 1;
+
+		// Play death sound.
+		// TODO
+
+		// Remove and respawn player
+		// TODO
 	}
 }
