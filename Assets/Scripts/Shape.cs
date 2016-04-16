@@ -13,39 +13,39 @@ public class Shape : MonoBehaviour {
 
 	}
 
-	void Move (float x, float y) {
+	public void Move (float x, float y) {
 
 	}
 
-	void SquarePressed () {
+	public void SquarePressed () {
 
 	}
 
-	void TrianglePressed () {
+	public void TrianglePressed () {
 
 	}
 
-	void CirclePressed () {
+	public void CirclePressed () {
 
 	}
 
-	void CrossPressed () {
+	public void CrossPressed () {
 
 	}
 
-	void LeftBumperPressed () {
+	public void LeftBumperPressed () {
 
 	}
 
-	void LeftTriggerPressed () {
+	public void LeftTriggerPressed () {
 
 	}
 
-	void RightBumperPressed () {
+	public void RightBumperPressed () {
 
 	}
 
-	void RightTriggerPressed () {
+	public void RightTriggerPressed () {
 
 	}
 }
