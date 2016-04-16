@@ -51,7 +51,7 @@ public class Shape : MonoBehaviour {
 
 	public void CrossPressed () {
 		if (ShapeUtils.IsOnPlatform (this.gameObject)) {
-			this.GetComponent<Rigidbody2D> ().AddForce (Vector3.up * jumpModifier * Time.deltaTime);
+			this.GetComponent<Rigidbody2D> ().AddForce (Vector2.up * jumpModifier);
 		}
 	}
 
