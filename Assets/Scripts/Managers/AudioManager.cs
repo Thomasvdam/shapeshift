@@ -5,7 +5,7 @@ public class AudioManager : MonoBehaviour {
 
 	public static AudioManager instance = null;
 
-	AudioSource audio = null;
+	new AudioSource audio = null;
 
 	void Awake () {
 		//Check if there is already an instance of SoundManager
