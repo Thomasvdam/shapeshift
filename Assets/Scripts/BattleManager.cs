@@ -74,6 +74,8 @@ public class BattleManager : MonoBehaviour {
 	private void createPlayers() {
 		for (int i = 0; i<PLAYER_LIMIT_DEFAULT; i++) {
 			players.Add(new GameObject());
+			players[i].AddComponent<Player>();
+			players[i].GetComponent<Player>().mId = i+1;
 			players[i].AddComponent<SquareShape>();
 			players[i].AddComponent<Controller>(); //Add this one last
 			players[i].GetComponent<Controller>().mId = i+1;

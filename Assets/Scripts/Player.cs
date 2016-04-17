@@ -5,6 +5,7 @@ public class Player : MonoBehaviour {
 
 	public int coins;
 	public int deaths;
+	public int mId;
 
 	// Use this for initialization
 	void Start () {
