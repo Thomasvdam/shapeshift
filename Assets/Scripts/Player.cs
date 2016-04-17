@@ -33,7 +33,7 @@ public class Player : MonoBehaviour {
 		// TODO
 
 		// Get rid of coin object.
-		Destroy(coin);
+		coin.GetComponent<CoinSpawner> ().onCoinCollected ();
 	}
 
 	void OnBorderTrigger () {
