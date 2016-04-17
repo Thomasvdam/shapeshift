@@ -21,6 +21,9 @@ namespace Assets.Scripts
         private float _previousDistance = -1;
         private DistanceJoint2D _joint;
 
+		private Vector3 grappleDirection;
+		private int pullForce = 1000;
+
         void Start()
         {
             _line = new GameObject("Line").AddComponent<LineRenderer>();
@@ -47,17 +50,18 @@ namespace Assets.Scripts
             if (IsEnabled) UpdateGrapple();
             else CheckForGrapple();
         }
-
+			
         private void CheckForGrapple()
         {
             if (Input.GetKeyDown("joystick 1 button 5"))
             {
-                var mousePosition = Input.mousePosition;
-                mousePosition.z = -Camera.main.transform.position.z;
-                var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                var grapplePoint = transform.position + (worldPosition - transform.position) * Length;
+				// Get joystick direction. TODO get this from other object/script
+				float x = Input.GetAxisRaw ("joystick 1 X axis");
+				float y = Input.GetAxisRaw ("joystick 1 Y axis");
+				grappleDirection = new Vector3 (x, -y, 0.0f);
 
-                var hit = Physics2D.Linecast(transform.position, grapplePoint, ~(1 << 8));
+				var grapplePoint = transform.position + grappleDirection.normalized * Length;
+				var hit = Physics2D.Linecast(transform.position, grapplePoint, ~(1 << 8)); // All layers except 8?
                 var distance = Vector3.Distance(transform.position, hit.point);
                 if (hit.collider != null && distance <= Length)
                 {
@@ -121,6 +125,17 @@ namespace Assets.Scripts
                 RetractRope();
             } else if(Input.GetKeyDown("joystick 1 button 4")) {
 				//maurits TODO
+				// On key: pull grappling hook target.
+				//Debug.Log(hit);
+				if (_points.Count <= 1) {
+					Vector3 pullDirection = new Vector3 (transform.position.x - _points[0].transform.position.x, transform.position.y - _points[0].transform.position.y, 0.0f);
+					hit.rigidbody.AddForce (pullDirection.normalized * pullForce);
+					Debug.Log (pullDirection);
+				} else {
+					Vector3 pullDirection = new Vector3 (_points[1].transform.position.x - _points[0].transform.position.x, _points[1].transform.position.y - _points[0].transform.position.y, 0.0f);
+					hit.rigidbody.AddForce (pullDirection.normalized * pullForce);
+					Debug.Log (pullDirection);
+				}
 
 			} else if (Vector3.Distance(_grapple.transform.position, _previousGrapple.transform.position) <= .1f)
             {
