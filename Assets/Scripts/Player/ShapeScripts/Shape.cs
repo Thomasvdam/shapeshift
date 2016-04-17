@@ -7,8 +7,8 @@ public class Shape : MonoBehaviour {
 	public float acceleration = 20f;
 	public float maxMovementSpeed = 20f;
 
-	private Vector2 direction;
-	private Rigidbody2D rigidBody;
+	protected Vector2 direction;
+	protected Rigidbody2D rigidBody;
 	private float sqrMaxMovementSpeed;
 
 	// Use this for initialization
@@ -18,6 +18,9 @@ public class Shape : MonoBehaviour {
 
 		// Calculate the sqrMaxMovementSpeed.
 		this.sqrMaxMovementSpeed = maxMovementSpeed * maxMovementSpeed;
+
+		// Allow custom start code.
+		this.CustomStart ();
 	}
 
 	// Update is called once per frame
@@ -39,51 +42,54 @@ public class Shape : MonoBehaviour {
 	public void MoveShape () {
 		// Move character sideways only when joystick is used.
 		if (Mathf.Abs (direction.x) > 0.2f) {
-//			Vector2 velocity = this.GetComponent<Rigidbody2D> ().velocity;
-//			this.GetComponent<Rigidbody2D> ().velocity = new Vector2 (direction.x * movementSpeed * Time.deltaTime, velocity.y);
 			this.rigidBody.AddForce(new Vector2(direction.x * acceleration, 0));
 		}
 	}
 
-	public void CustomUpdate () {
+
+	virtual public void CustomStart () {
 
 	}
 
-	public void Move (float x, float y) {
+	virtual public void CustomUpdate () {
+
+	}
+
+	virtual public void Move (float x, float y) {
 		this.direction = new Vector2 (x, y);
 	}
 
-	public void SquarePressed () {
+	virtual public void SquarePressed () {
 
 	}
 
-	public void TrianglePressed () {
+	virtual public void TrianglePressed () {
 
 	}
 
-	public void CirclePressed () {
+	virtual public void CirclePressed () {
 
 	}
 
-	public void CrossPressed () {
+	virtual public void CrossPressed () {
 		if (ShapeUtils.IsOnPlatform (this.gameObject)) {
 			this.rigidBody.AddForce (Vector2.up * jumpModifier);
 		}
 	}
 
-	public void LeftBumperPressed () {
+	virtual public void LeftBumperPressed () {
 
 	}
 
-	public void LeftTriggerPressed () {
+	virtual public void LeftTriggerPressed () {
 
 	}
 
-	public void RightBumperPressed () {
-
+	virtual public void RightBumperPressed () {
+		
 	}
 
-	public void RightTriggerPressed () {
-
+	virtual public void RightTriggerPressed () {
+		
 	}
 }
