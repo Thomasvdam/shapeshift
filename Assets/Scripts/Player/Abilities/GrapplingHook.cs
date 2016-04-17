@@ -21,6 +21,7 @@ namespace Assets.Scripts
         private float _previousDistance = -1;
         private DistanceJoint2D _joint;
 
+		private Vector3 grappleInitPos = new Vector3 (100, 100, 100);
 		private Vector3 grappleDirection;
 		private int pullForce = 1000;
 
@@ -37,7 +38,7 @@ namespace Assets.Scripts
             _grapple.AddComponent<CircleCollider2D>().radius = .1f;
             _grapple.AddComponent<Rigidbody2D>();
             _grapple.GetComponent<Rigidbody2D>().isKinematic = true;
-			_grapple.transform.position = new Vector3 (100, 100, 100); // Move grapple far away
+			_grapple.transform.position = grappleInitPos;
 
             _previousGrapple = (GameObject)Instantiate(_grapple);
             _previousGrapple.name = "Previous Grapple";
@@ -164,8 +165,8 @@ namespace Assets.Scripts
             _line.gameObject.SetActive(false);
             _points.ForEach(Destroy);
             _points.Clear();
-            _grapple.transform.position = new Vector3(0, 0, -1);
-            _previousGrapple.transform.position = new Vector3(0, 0, -1);
+            _grapple.transform.position = grappleInitPos;
+            _previousGrapple.transform.position = grappleInitPos;
             _previousDistance = -1;
         }
 
