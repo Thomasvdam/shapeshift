@@ -5,6 +5,9 @@ public class Player : MonoBehaviour {
 
 	public int coins;
 	public int deaths;
+	public int mId;
+
+	public AudioClip deathSound;
 
 	// Use this for initialization
 	void Start () {
@@ -33,15 +36,15 @@ public class Player : MonoBehaviour {
 		// TODO
 
 		// Get rid of coin object.
-		Destroy(coin);
+		coin.GetComponent<CoinSpawner> ().onCoinCollected ();
 	}
 
 	void OnBorderTrigger () {
 		// Increment deaths.
 		this.deaths = this.deaths + 1;
 
-		// Play death sound.
-		// TODO
+		// Play death sound
+		AudioManager.instance.PlaySound (deathSound);
 
 		// Remove and respawn player
 		// TODO
