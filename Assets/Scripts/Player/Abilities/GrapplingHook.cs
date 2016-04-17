@@ -37,6 +37,7 @@ namespace Assets.Scripts
             _grapple.AddComponent<CircleCollider2D>().radius = .1f;
             _grapple.AddComponent<Rigidbody2D>();
             _grapple.GetComponent<Rigidbody2D>().isKinematic = true;
+			_grapple.transform.position = new Vector3 (100, 100, 100); // Move grapple far away
 
             _previousGrapple = (GameObject)Instantiate(_grapple);
             _previousGrapple.name = "Previous Grapple";
