@@ -23,7 +23,8 @@ namespace Assets.Scripts
 
 		private Vector3 grappleInitPos = new Vector3 (100, 100, 100);
 		private Vector3 grappleDirection;
-		private int pullForce = 1000;
+		private int pullForce = 300;
+		private GameObject grappledObj;
 
         void Start()
         {
@@ -40,11 +41,13 @@ namespace Assets.Scripts
             _grapple.GetComponent<Rigidbody2D>().isKinematic = true;
 			_grapple.transform.position = grappleInitPos;
 
+
             _previousGrapple = (GameObject)Instantiate(_grapple);
             _previousGrapple.name = "Previous Grapple";
 
             _joint = gameObject.AddComponent<DistanceJoint2D>();
-            _joint.enabled = false;
+            _joint.enabled = false;	
+		
         }
 
         void Update()
@@ -81,6 +84,8 @@ namespace Assets.Scripts
                     _joint.connectedBody = _grapple.GetComponent<Rigidbody2D>();
                     _joint.distance = Vector3.Distance(hit.point, transform.position);
                     _joint.maxDistanceOnly = true;
+
+					grappledObj = hit.collider.gameObject;
                 }
             }
         }
@@ -116,7 +121,8 @@ namespace Assets.Scripts
 
                 _joint.distance -= Vector3.Distance(_grapple.transform.position, _previousGrapple.transform.position);
             }
-            else if (Input.GetKeyDown("joystick 1 button 5") || Input.GetKeyDown("joystick 1 button 1"))
+//            else if (Input.GetKeyDown("joystick 1 button 5") || Input.GetKeyDown("joystick 1 button 1"))
+			else if (!Input.GetKey("joystick 1 button 5"))
             {
                 // if you retract the grappling hook
 
@@ -126,17 +132,16 @@ namespace Assets.Scripts
 
                 RetractRope();
             } else if(Input.GetKeyDown("joystick 1 button 4")) {
-				//maurits TODO
-				// On key: pull grappling hook target.
-				//Debug.Log(hit);
-				if (_points.Count <= 1) {
-					Vector3 pullDirection = new Vector3 (transform.position.x - _points[0].transform.position.x, transform.position.y - _points[0].transform.position.y, 0.0f);
-					hit.rigidbody.AddForce (pullDirection.normalized * pullForce);
-					Debug.Log (pullDirection);
+				if (grappledObj.tag != "Player") {
+					return;
+				} else if (_points.Count <= 1) {
+//					Vector3 pullDirection = new Vector3 (transform.position.x - _points[0].transform.position.x, transform.position.y - _points[0].transform.position.y, 0.0f);
+//					grappledObj.GetComponent<Rigidbody2D>().AddForce (pullDirection.normalized * pullForce);
+					grappledObj.GetComponent<Rigidbody2D>().AddForce (transform.up * pullForce);
 				} else {
-					Vector3 pullDirection = new Vector3 (_points[1].transform.position.x - _points[0].transform.position.x, _points[1].transform.position.y - _points[0].transform.position.y, 0.0f);
-					hit.rigidbody.AddForce (pullDirection.normalized * pullForce);
-					Debug.Log (pullDirection);
+//					Vector3 pullDirection = new Vector3 (_points[1].transform.position.x - _points[0].transform.position.x, _points[1].transform.position.y - _points[0].transform.position.y, 0.0f);
+//					grappledObj.GetComponent<Rigidbody2D>().AddForce (pullDirection.normalized * pullForce);
+					grappledObj.GetComponent<Rigidbody2D>().AddForce (transform.up * pullForce);
 				}
 
 			} else if (Vector3.Distance(_grapple.transform.position, _previousGrapple.transform.position) <= .1f)
@@ -149,7 +154,7 @@ namespace Assets.Scripts
 
                 _line.SetPosition(_points.Count, transform.position);
                 GetComponent<Rigidbody2D>().AddForce(Vector3.right * Input.GetAxisRaw("joystick 1 X axis") * 25);
-                _joint.distance -= Input.GetAxisRaw("joystick 1 Y axis") * Time.deltaTime;
+                _joint.distance += Input.GetAxisRaw("joystick 1 Y axis") * Time.deltaTime * 2;
 
                 // if you can see previous point then unroll back to that point
                 if (hitPrev.collider != null && hitPrev.transform == _previousGrapple.transform)
@@ -187,7 +192,7 @@ namespace Assets.Scripts
             if (_points.Count > 1)
                 _previousGrapple.transform.position = _points.ElementAt(_points.Count - 2).transform.position;
             else
-                _previousGrapple.transform.position = new Vector3(0, 0, -1);
+                _previousGrapple.transform.position = grappleInitPos;
 
             _previousDistance = -1;
         }
