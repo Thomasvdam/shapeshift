@@ -62,10 +62,11 @@ public class Shape : MonoBehaviour {
 
 	virtual public void Move (float x, float y) {
 		this.direction = new Vector2 (x, y);
+		Debug.Log (direction);
 	}
 
 	virtual public void SquarePressed () {
-
+		
 	}
 
 	virtual public void SquareHeld () {
@@ -73,7 +74,7 @@ public class Shape : MonoBehaviour {
 	}
 
 	virtual public void SquareUp () {
-
+		
 	}
 
 	virtual public void TrianglePressed () {
@@ -100,6 +101,10 @@ public class Shape : MonoBehaviour {
 
 	virtual public void RightBumperPressed () {
 		
+	}
+
+	virtual public void RightBumperUp () {
+
 	}
 
 	virtual public void RightTriggerPressed () {
