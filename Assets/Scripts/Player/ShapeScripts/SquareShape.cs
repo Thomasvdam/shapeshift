@@ -10,7 +10,11 @@ public class SquareShape : Shape {
 	}
 
 	override public void SquarePressed(){
-		lunge.LungeSide ();
+		lunge.LungeCharge ();
+	}
+
+	override public void SquareUp() {
+		lunge.LungeStart ();
 	}
 
 	void OnCollisionEnter2D (Collision2D col) {

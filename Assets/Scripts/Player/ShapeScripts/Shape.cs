@@ -39,11 +39,16 @@ public class Shape : MonoBehaviour {
 		}
 	}
 
-	public void MoveShape () {
+	virtual public void MoveShape () {
 		// Move character sideways only when joystick is used.
 		if (Mathf.Abs (direction.x) > 0.2f) {
 			this.rigidBody.AddForce(new Vector2(direction.x * acceleration, 0));
 		}
+	}
+
+	//Call this when shapeshifting to remove components
+	virtual public void CustomEnd() {
+		Destroy (this);
 	}
 
 
@@ -60,6 +65,14 @@ public class Shape : MonoBehaviour {
 	}
 
 	virtual public void SquarePressed () {
+
+	}
+
+	virtual public void SquareHeld () {
+		
+	}
+
+	virtual public void SquareUp () {
 
 	}
 

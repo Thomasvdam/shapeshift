@@ -13,6 +13,6 @@ public static class ShapeUtils {
 	}
 
 	private static float GetDistanceToGround (GameObject player) {
-		return player.GetComponent<BoxCollider2D> ().bounds.extents.y;
+		return player.GetComponent<Collider2D> ().bounds.extents.y;
 	}
 }
