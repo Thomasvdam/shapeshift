@@ -21,6 +21,16 @@ public class SquareShape : Shape {
 
 	}
 
+	override public void MoveShape () {
+
+		if (!lunge.isLunging) {
+			if (Mathf.Abs (direction.x) > 0.2f) {
+				this.rigidBody.AddForce(new Vector2(direction.x * acceleration, 0));
+			}
+		}
+
+	}
+
 	void OnCollisionEnter2D (Collision2D col) {
 
 		if (col.gameObject.tag == "Player" && lunge.isLunging) {

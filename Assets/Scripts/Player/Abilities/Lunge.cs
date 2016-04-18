@@ -50,7 +50,6 @@ public class Lunge : MonoBehaviour {
 		yield return new WaitForSeconds (0.4f);
 		col.collider.enabled = true;
 		isLunging = false;
-		Debug.Log ("colback");
 
 	}
 }
