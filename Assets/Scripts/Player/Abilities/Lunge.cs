@@ -41,7 +41,6 @@ public class Lunge : MonoBehaviour {
 
 			StartCoroutine( LungeTime ());
 		}
-		// TODO add cooldown.
 	}
 
 	// For the duration of the lunge

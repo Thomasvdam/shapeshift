@@ -14,17 +14,29 @@ public class SquareShape : Shape {
 	}
 
 	override public void CustomStart (){
+		base.CustomStart ();
+		gameObject.AddComponent<BoxCollider2D> ();
+		gameObject.AddComponent<Lunge> ();
 		lunge = this.GetComponent<Lunge> ();
+
+	}
+
+	override public void CustomEnd () {
+		Destroy (this.gameObject.GetComponent<Lunge>());
+		base.CustomEnd ();
 	}
 
 	override public void RightBumperPressed(){
+		base.RightBumperPressed ();
 		if (Time.time <= this.cooldownTimeStamp) {
+			Debug.Log ("Skill on cooldown");
 			return;
 		}
 		lunge.LungeCharge ();
 	}
 
 	override public void RightBumperUp() {
+		base.RightBumperUp ();
 		if (lunge.isCharging) {
 			lunge.LungeStart ();
 			this.cooldownTimeStamp = Time.time + this.forceCooldown;
