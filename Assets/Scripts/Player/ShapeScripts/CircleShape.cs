@@ -27,6 +27,7 @@ public class CircleShape : Shape {
 	public override void CustomStart ()
 	{
 		base.CustomStart ();
+		gameObject.AddComponent<CircleCollider2D> ();
 		gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Art/circle-basic");
 		this.gameObject.AddComponent<GrappleBooster>();
 	}

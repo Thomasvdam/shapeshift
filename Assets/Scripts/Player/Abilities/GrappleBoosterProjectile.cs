@@ -3,10 +3,11 @@ using System.Collections;
 
 public class GrappleBoosterProjectile : MonoBehaviour {
 
-	private Sprite grappledSprite;
-	//private bool hasGrappledPlayer = false;
+	private bool hasGrappledPlayer = false;
 	Vector2 direction;
 	GameObject grappledPlayer;
+	private float timePassed = 0f;
+	private float maxTimePassed = 1f;
 
 	public void setDirection(Vector2 direction) {
 		this.direction = direction;
@@ -21,24 +22,36 @@ public class GrappleBoosterProjectile : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D other) {
-		Sprite grappled = Resources.Load <Sprite> ("Art/hook/hook1");
+		string path = "Art/hook/hook0";
+		Sprite grappledSprite = Resources.Load <Sprite> (path);
 
 		if (other.gameObject.tag == "Player") {
+			hasGrappledPlayer = true;
 			GetComponent<SpriteRenderer>().sprite = grappledSprite;
+			flip (direction);
 			//hasGrappledPlayer = true;
 			grappledPlayer = other.gameObject;
+			this.gameObject.transform.SetParent(grappledPlayer.transform);
+			this.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+			this.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
 			grappledPlayer.GetComponent<Rigidbody2D>().AddForce(-direction * 700);
-			GetComponent<PolygonCollider2D>().enabled = false;
-			GetComponent<Rigidbody2D>().isKinematic = true;
-			transform.parent = grappledPlayer.transform;
-		} else {
+		} else if(!hasGrappledPlayer) {
 			Destroy(this.gameObject);
 		}
 	}
 
-	/*void Update() {
-		if (hasGrappledPlayer) {
-
+	void OnTriggerEnter2D (Collider2D other) {
+		if (other.gameObject.tag == "Border") {
+			Destroy(this.gameObject);
 		}
-	}*/
+	}
+
+	void Update() {
+		if (hasGrappledPlayer) {
+			timePassed += Time.deltaTime;
+			if(timePassed > maxTimePassed) {
+				Destroy(this.gameObject);
+			}
+		}
+	}
 }
