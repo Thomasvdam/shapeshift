@@ -10,7 +10,7 @@ public class SquareShape : Shape {
 	}
 
 	override public void SquarePressed(){
-		lunge.LungeStart ();
+		//lunge.LungeStart ();
 	}
 
 	override public void SquareUp() {

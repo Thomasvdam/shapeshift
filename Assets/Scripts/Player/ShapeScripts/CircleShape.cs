@@ -20,18 +20,19 @@ public class CircleShape : Shape {
 	public override void RightBumperPressed ()
 	{
 		base.RightBumperPressed ();
-		this.gameObject.GetComponent<GrappleBoosterProjectile> ().fire ();
+		this.gameObject.GetComponent<GrappleBooster> ().fire ();
 
 	}
 
 	public override void CustomStart ()
 	{
 		base.CustomStart ();
-		this.gameObject.AddComponent<GrappleBoosterProjectile>();
+		gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Art/circle-basic");
+		this.gameObject.AddComponent<GrappleBooster>();
 	}
 
 	public override void CustomEnd() {
-		Destroy(this.gameObject.GetComponent<GrappleBoosterProjectile> ());
+		Destroy(this.gameObject.GetComponent<GrappleBooster> ());
 		base.CustomEnd ();
 	}
 

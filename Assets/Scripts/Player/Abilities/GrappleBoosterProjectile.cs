@@ -3,33 +3,42 @@ using System.Collections;
 
 public class GrappleBoosterProjectile : MonoBehaviour {
 
-	public GameObject GrappleBoosterPrefab;
-	public Sprite grappled;
-	private Controller controller;
+	private Sprite grappledSprite;
+	//private bool hasGrappledPlayer = false;
+	Vector2 direction;
+	GameObject grappledPlayer;
 
-	void Awake() {
-		Debug.Log ("Awake");
-		controller = GetComponent<Controller> ();
-		Sprite grappled = Resources.Load <Sprite> ("Art/hook/hook1");
-		GrappleBoosterPrefab = Resources.Load<GameObject> ("Prefabs/GrappleBooster");
+	public void setDirection(Vector2 direction) {
+		this.direction = direction;
+		flip (direction);
 	}
 
-	//Fires a grapple booster
-	public void fire() {
-		Vector2 direction = new Vector2 (controller.getXAxisRaw (), controller.getYAxisRaw ());
-		GameObject instantiated = (GameObject) Instantiate(GrappleBoosterPrefab, getDirectionLeftOrRight(direction), Quaternion.identity);
-		instantiated.GetComponent<Rigidbody2D> ().velocity = direction;
-		       
-	}
-
-	private Vector3 getDirectionLeftOrRight(Vector2 direction) {
-		if (direction.x > 0) {
-			//right
-			return new Vector3(direction.x + (GrappleBoosterPrefab.GetComponent<SpriteRenderer>().bounds.size.x/2f), direction.y, 0f);
-		} else {
-			//left
-			return new Vector3(direction.x - (GrappleBoosterPrefab.GetComponent<SpriteRenderer>().bounds.size.x/2f), direction.y, 0f);
+	private void flip(Vector2 direction) {
+		if (direction.x <= 0)
+		{
+			transform.localRotation = Quaternion.Euler(0, 180, 0);
 		}
-	
 	}
+
+	void OnCollisionEnter2D (Collision2D other) {
+		Sprite grappled = Resources.Load <Sprite> ("Art/hook/hook1");
+
+		if (other.gameObject.tag == "Player") {
+			GetComponent<SpriteRenderer>().sprite = grappledSprite;
+			//hasGrappledPlayer = true;
+			grappledPlayer = other.gameObject;
+			grappledPlayer.GetComponent<Rigidbody2D>().AddForce(-direction * 700);
+			GetComponent<PolygonCollider2D>().enabled = false;
+			GetComponent<Rigidbody2D>().isKinematic = true;
+			transform.parent = grappledPlayer.transform;
+		} else {
+			Destroy(this.gameObject);
+		}
+	}
+
+	/*void Update() {
+		if (hasGrappledPlayer) {
+
+		}
+	}*/
 }
