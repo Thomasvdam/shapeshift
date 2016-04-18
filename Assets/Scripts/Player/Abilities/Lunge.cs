@@ -35,7 +35,7 @@ public class Lunge : MonoBehaviour {
 			squareRb.isKinematic = false;
 			chargeValue = (chargeEnd - chargeStart) > maxCharge ? maxCharge : (chargeEnd - chargeStart);
 
-			float x = Input.GetAxisRaw ("joystick 1 X axis");
+			float x = GetComponent<Controller>().getXAxisRaw();
 			x = x > 0 ? 1 : -1;
 			squareRb.AddForce (new Vector3 (lungeForce * x * chargeValue, 0.0f, 0.0f));
 
@@ -60,8 +60,7 @@ public class Lunge : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D col) {
-		
-		if (col.gameObject.tag == "Player" && isLunging) {
+		if (col.gameObject.tag.Equals("Player") && isLunging) {
 			col.collider.enabled = false;
 			StartCoroutine (FallDuration (col));
 			squareRb.velocity = Vector2.zero;

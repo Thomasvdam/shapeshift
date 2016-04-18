@@ -8,9 +8,6 @@ public class SquareShape : Shape {
 	private Lunge lunge;
 
 	override public void CustomUpdate () {
-		if (lunge.isLunging && (Mathf.Abs(lunge.squareRb.velocity.x) <= 3)) {
-			lunge.isLunging = false;
-		}
 	}
 
 	override public void CustomStart (){
