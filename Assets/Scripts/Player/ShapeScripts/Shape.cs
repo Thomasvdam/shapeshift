@@ -11,6 +11,8 @@ public class Shape : MonoBehaviour {
 	protected Rigidbody2D rigidBody;
 	private float sqrMaxMovementSpeed;
 
+	private bool grounded = false;
+
 	// Use this for initialization
 	void Start () {
 		// Cache RB.
@@ -73,7 +75,7 @@ public class Shape : MonoBehaviour {
 	}
 
 	virtual public void CrossPressed () {
-		if (ShapeUtils.IsOnPlatform (this.gameObject)) {
+		if (grounded) {
 			this.rigidBody.AddForce (Vector2.up * jumpStrength * 100);
 		}
 	}
@@ -96,5 +98,21 @@ public class Shape : MonoBehaviour {
 
 	virtual public void RightTriggerPressed () {
 		
+	}
+
+	void OnCollisionStay2D (Collision2D other) {
+		if (other.gameObject.tag == "Platform") {
+			if (Vector2.Angle (other.contacts [0].normal, Physics2D.gravity) > 100f) {
+				this.grounded = true;
+			} else {
+				this.grounded = false;
+			}
+		}
+	}
+
+	void OnCollisionExit2D (Collision2D other) {
+		if (other.gameObject.tag == "Platform") {
+			this.grounded = false;
+		}
 	}
 }
