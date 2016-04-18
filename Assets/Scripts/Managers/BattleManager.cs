@@ -16,11 +16,11 @@ public class BattleManager : MonoBehaviour {
 	public GameObject winScreenPrefab;
 	private List<GameObject> players = new List<GameObject>();
 
-	private const float TIME_LIMIT_DEFAULT = 100f;
+	private const float TIME_LIMIT_DEFAULT = 2f;
 	private const int PLAYER_LIMIT_DEFAULT = 4;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		timeLimit = TIME_LIMIT_DEFAULT;
 		createPlayers ();
 	}
@@ -28,19 +28,19 @@ public class BattleManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (isTimedBattle && timePassed > timeLimit) {
-			timePassed += Time.deltaTime;
 			showWinner ();
 		}
+		timePassed += Time.deltaTime;
 	}
 
 	private void showWinner() {
 		checkWinnerAndSetWinScreenPrefab ();
-		//winScreenPrefab.show()
+		winScreenPrefab.SetActive (true);
 	}
 
 	private void checkWinnerAndSetWinScreenPrefab() {
 		List<Player> mostCoinsLeastDeaths = new List<Player>();
-		mostCoinsLeastDeaths [0] = players [0].GetComponent<Player> ();
+		mostCoinsLeastDeaths.Add(players[0].GetComponent<Player> ());
 		for (int i = 1; i<players.Count; i++) {
 			Player player = players[i].GetComponent<Player>();
 	
@@ -66,8 +66,18 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void setWinScreenPrefab(List<Player> mostCoinsLeastDeaths){
-		for (int i = 0; i<mostCoinsLeastDeaths.Count; i++) {
-			//winScreenPrefab.setWinningPlayer(player.id);
+		Debug.Log ("count: " + mostCoinsLeastDeaths.Count);
+		if (mostCoinsLeastDeaths.Count > 1) {
+			string text = "WINNERS: ";
+			text += mostCoinsLeastDeaths[0].mId;
+			for (int i = 1; i<mostCoinsLeastDeaths.Count; i++) {
+				text += " & " + mostCoinsLeastDeaths[i].mId;
+			}
+			winScreenPrefab.GetComponent<UnityEngine.UI.Text>().text = text;
+		} else {
+			string text = "WINNER = ";
+			text += mostCoinsLeastDeaths[0].mId;
+			winScreenPrefab.GetComponent<UnityEngine.UI.Text>().text = text;
 		}
 	}
 
@@ -76,9 +86,9 @@ public class BattleManager : MonoBehaviour {
 			players.Add(new GameObject());
 			players[i].AddComponent<Player>();
 			players[i].GetComponent<Player>().mId = i+1;
-			players[i].AddComponent<SquareShape>();
-			players[i].AddComponent<Controller>(); //Add this one last
-			players[i].GetComponent<Controller>().mId = i+1;
+			//players[i].AddComponent<SquareShape>();
+			//players[i].AddComponent<Controller>(); //Add this one last
+			//players[i].GetComponent<Controller>().mId = i+1;
 		}
 	}
 }
