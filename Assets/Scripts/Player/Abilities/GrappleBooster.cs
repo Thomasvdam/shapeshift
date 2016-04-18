@@ -15,7 +15,7 @@ public class GrappleBooster : MonoBehaviour {
 
 	//Fires a grapple booster
 	public void fire() {
-		Vector2 direction = new Vector2 (controller.getXAxisRaw (), controller.getYAxisRaw ());
+		Vector2 direction = new Vector2 (controller.getXAxisRaw (), controller.getYAxisRawInverted ());
 		GameObject instantiated = (GameObject) Instantiate(grappleBoosterPrefab, getDirectionLeftOrRight(direction), Quaternion.identity);
 		instantiated.GetComponent<GrappleBoosterProjectile> ().setDirection (direction);
 		instantiated.GetComponent<Rigidbody2D> ().AddForce(direction * 700);
