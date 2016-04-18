@@ -7,6 +7,8 @@ public class Player : MonoBehaviour {
 	public int deaths;
 	public int mId;
 
+	public GameObject particleSystem;
+
 	private Controller controller;
 	private Shape currentShape;
 
@@ -39,6 +41,9 @@ public class Player : MonoBehaviour {
 		// Destroy the current context.
 		this.currentShape.CustomEnd ();
 
+		// Add an animation.
+		Instantiate(this.particleSystem, this.transform.position, this.transform.rotation);
+
 		// And create new context.
 		this.currentShape = this.gameObject.AddComponent<SquareShape> ();
 
@@ -59,6 +64,9 @@ public class Player : MonoBehaviour {
 		// Destroy the current context.
 		this.currentShape.CustomEnd ();
 
+		// Add an animation.
+		Instantiate(this.particleSystem, this.transform.position, this.transform.rotation);
+
 		// And create new context.
 		this.currentShape = this.gameObject.AddComponent<TriangleShape> ();
 
@@ -78,6 +86,9 @@ public class Player : MonoBehaviour {
 
 		// Destroy the current context.
 		this.currentShape.CustomEnd ();
+
+		// Add an animation.
+		Instantiate(this.particleSystem, this.transform.position, this.transform.rotation);
 
 		// And create new context.
 		this.currentShape = this.gameObject.AddComponent<CircleShape> ();
