@@ -81,6 +81,12 @@ public class Controller : MonoBehaviour {
 		}
 	}
 
+	private void checkSquareButtonHeld () {
+		if (getKey (SQUARE_PS4)) {
+			shape.SquareHeld ();
+		}
+	}
+
 	private void checkCircleButton() {
 		if (getKeyDown(CIRCLE_PS4)) {
 			shape.CirclePressed();
