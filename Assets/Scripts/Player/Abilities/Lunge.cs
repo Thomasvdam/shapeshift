@@ -5,8 +5,9 @@ public class Lunge : MonoBehaviour {
 
 	public bool isLunging = false;
 	public bool isCharging = false;
+	public static int lungeForce = 1000;
+
 	public Rigidbody2D squareRb;
-	public int lungeForce = 0;
 
 	private float chargeStart;
 	private float chargeEnd;
@@ -26,13 +27,18 @@ public class Lunge : MonoBehaviour {
 	public void LungeStart () {
 
 		if (isCharging) {
+			
+			isCharging = false;
+			isLunging = true;
+			chargeEnd = Time.time;
+			squareRb.isKinematic = false;
 
 			float x = Input.GetAxisRaw ("joystick 1 X axis");
 			x = x > 0 ? 1 : -1;
-			squareRb.isKinematic = false;
-			squareRb.AddForce (new Vector3 (lungeForce * x, 0.0f, 0.0f));
-			isCharging = false;
-			isLunging = true;
+			squareRb.AddForce (new Vector3 (lungeForce * x * (chargeEnd - chargeStart), 0.0f, 0.0f));
+
+//			yield return new WaitForSeconds (0.4f);
+//			isLunging = false;
 
 		}
 	}
@@ -41,6 +47,8 @@ public class Lunge : MonoBehaviour {
 		
 		yield return new WaitForSeconds (0.4f);
 		col.collider.enabled = true;
+		isLunging = false;
+		Debug.Log ("colback");
 
 	}
 
