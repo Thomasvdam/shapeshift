@@ -5,15 +5,19 @@ public class Lunge : MonoBehaviour {
 
 	public bool isLunging = false;
 	public bool isCharging = false;
-	public static int lungeForce = 1000;
 
 	public Rigidbody2D squareRb;
 
 	private float chargeStart;
 	private float chargeEnd;
+	private float maxCharge = 5;
+	private float chargeValue;
+	private static int lungeForce = 1000;
 
 	void Start () {
+		
 		squareRb = GetComponent<Rigidbody2D> ();
+
 	}
 
 	public void LungeCharge () {
@@ -32,13 +36,11 @@ public class Lunge : MonoBehaviour {
 			isLunging = true;
 			chargeEnd = Time.time;
 			squareRb.isKinematic = false;
+			chargeValue = (chargeEnd - chargeStart) > maxCharge ? maxCharge : (chargeEnd - chargeStart);
 
 			float x = Input.GetAxisRaw ("joystick 1 X axis");
 			x = x > 0 ? 1 : -1;
-			squareRb.AddForce (new Vector3 (lungeForce * x * (chargeEnd - chargeStart), 0.0f, 0.0f));
-
-//			yield return new WaitForSeconds (0.4f);
-//			isLunging = false;
+			squareRb.AddForce (new Vector3 (lungeForce * x * chargeValue, 0.0f, 0.0f));
 
 		}
 	}
@@ -51,6 +53,5 @@ public class Lunge : MonoBehaviour {
 		Debug.Log ("colback");
 
 	}
-
 }
 
