@@ -13,6 +13,10 @@ public class SquareShape : Shape {
 		lunge.LungeSide ();
 	}
 
+	override public void SquareHeld() {
+		Debug.Log ("squareheld");
+	}
+
 	void OnCollisionEnter2D (Collision2D col) {
 
 		if (col.gameObject.tag == "Player" && lunge.isLunging) {
