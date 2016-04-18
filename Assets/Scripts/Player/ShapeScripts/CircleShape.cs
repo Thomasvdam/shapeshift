@@ -10,10 +10,10 @@ public class CircleShape : Shape {
 	}
 
 	private void checkForGlide() {
-		if(ShapeUtils.IsOnPlatform(this.gameObject)) {
-			this.rigidBody.gravityScale = 2f;
+		if (!ShapeUtils.IsOnPlatform (this.gameObject) && GetComponent<Controller> ().getKey (Controller.LEFT_BUMPER_PS4)) {
+			gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.01f;
 		} else {
-			this.rigidBody.gravityScale = 0.01f;
+			gameObject.GetComponent<Rigidbody2D>().gravityScale = 2f;
 		}
 	}
 

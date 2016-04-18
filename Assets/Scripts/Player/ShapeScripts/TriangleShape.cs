@@ -9,7 +9,24 @@ public class TriangleShape : Shape {
 	private ForcePush force;
 
 	override public void CustomStart () {
-		this.force = this.GetComponent<ForcePush> ();
+		// Change sprite and animation.
+		this.GetComponent<Animator> ().Play("Triangle");
+
+		// Add a placeholder sprite so we can create a polygoncollider.
+		this.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Art/player/grey/triangleGrey5");
+
+		// Add a collider to the shape.
+		this.gameObject.AddComponent<PolygonCollider2D> ();
+
+		// Add force push component to the player.
+		this.force = this.gameObject.AddComponent<ForcePush> () as ForcePush;
+		this.force.forceProjectile = Resources.Load ("Prefabs/ForceProjectile") as GameObject;
+	}
+
+	public override void CustomEnd() {
+		Destroy(this.gameObject.GetComponent<ForcePush> ());
+		Destroy(this.gameObject.GetComponent<PolygonCollider2D> ());
+		base.CustomEnd ();
 	}
 
 	override public void RightBumperPressed () {

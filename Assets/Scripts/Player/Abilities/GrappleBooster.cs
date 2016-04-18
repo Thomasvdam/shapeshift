@@ -22,12 +22,15 @@ public class GrappleBooster : MonoBehaviour {
 	}
 
 	private Vector3 getDirectionLeftOrRight(Vector2 direction) {
-		if (direction.x > 0) {
-			//right
-			return new Vector3(gameObject.transform.position.x + grappleBoosterPrefab.GetComponent<SpriteRenderer>().bounds.size.x, gameObject.transform.position.y, 0f);
-		} else {
+		if (direction.x < -0.5f) {
 			//left
-			return new Vector3(gameObject.transform.position.x - grappleBoosterPrefab.GetComponent<SpriteRenderer>().bounds.size.x, gameObject.transform.position.y, 0f);
+			return new Vector3 (gameObject.transform.position.x - grappleBoosterPrefab.GetComponent<SpriteRenderer> ().bounds.size.x, gameObject.transform.position.y, 0f);
+		} else if (direction.y > 0.5f) {
+			return new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y + grappleBoosterPrefab.GetComponent<SpriteRenderer> ().bounds.size.y, 0f);
+		} else if (direction.y < -0.5f) {
+			return new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - grappleBoosterPrefab.GetComponent<SpriteRenderer> ().bounds.size.y, 0f);
+		} else {
+			return new Vector3 (gameObject.transform.position.x + grappleBoosterPrefab.GetComponent<SpriteRenderer> ().bounds.size.x, gameObject.transform.position.y, 0f);
 		}
 	
 	}
