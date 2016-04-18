@@ -32,6 +32,7 @@ public class Controller : MonoBehaviour {
 		checkCrossButton ();
 		checkAxes ();
 		checkSquareButton ();
+		checkSquareButtonHeld ();
 		checkTriangleButton ();
 		checkCircleButton ();
 		checkLeftBumperButton ();
@@ -69,6 +70,10 @@ public class Controller : MonoBehaviour {
 		return Input.GetKey (getJoystickButton (ps4));
 	}
 
+	public bool getKeyUp(string ps4) {
+		return Input.GetKeyUp (getJoystickButton (ps4));
+	}
+
 	private void checkCrossButton() {
 		if (getKeyDown(CROSS_PS4)) {
 			shape.CrossPressed();
@@ -78,6 +83,18 @@ public class Controller : MonoBehaviour {
 	private void checkSquareButton() {
 		if (getKeyDown(SQUARE_PS4)) {
 			shape.SquarePressed();
+		}
+	}
+
+	private void checkSquareButtonHeld () {
+		if (getKey (SQUARE_PS4)) {
+			shape.SquareHeld ();
+		}
+	}
+
+	private void checkSquareButtonUp () {
+		if (getKeyUp (SQUARE_PS4)) {
+			shape.SquareUp ();
 		}
 	}
 

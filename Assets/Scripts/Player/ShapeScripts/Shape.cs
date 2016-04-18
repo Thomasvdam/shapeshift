@@ -63,6 +63,14 @@ public class Shape : MonoBehaviour {
 
 	}
 
+	virtual public void SquareHeld () {
+		
+	}
+
+	virtual public void SquareUp () {
+
+	}
+
 	virtual public void TrianglePressed () {
 
 	}
