@@ -13,25 +13,22 @@ public class Lunge : MonoBehaviour {
 	private float maxCharge = 5;
 	private float chargeValue;
 	private static int lungeForce = 1000;
+	private float lungeDuration = 1f;
+	private float fallTime = 0.4f;
 
 	void Start () {
-		
 		squareRb = GetComponent<Rigidbody2D> ();
-
 	}
-
-	public void LungeCharge () {
 		
+	public void LungeCharge () {
 		isCharging = true;
 		squareRb.isKinematic = true;
 		chargeStart = Time.time;
-
 	}
 
 	public void LungeStart () {
 
 		if (isCharging) {
-			
 			isCharging = false;
 			isLunging = true;
 			chargeEnd = Time.time;
@@ -42,15 +39,24 @@ public class Lunge : MonoBehaviour {
 			x = x > 0 ? 1 : -1;
 			squareRb.AddForce (new Vector3 (lungeForce * x * chargeValue, 0.0f, 0.0f));
 
+			StartCoroutine( LungeTime ());
 		}
 	}
 
-	public IEnumerator LungeDuration (Collision2D col) {
+	// For the duration of the lunge
+	// -	the square cannot (joystick) move
+	// -	other players's colliders are disabled for fallTime seconds when hit by lunging square
+	public IEnumerator LungeTime () {
 		
-		yield return new WaitForSeconds (0.4f);
+		yield return new WaitForSeconds (lungeDuration);
+		isLunging = false;
+	}
+
+	public IEnumerator FallDuration (Collision2D col) {
+		
+		yield return new WaitForSeconds (fallTime);
 		col.collider.enabled = true;
 		isLunging = false;
-
 	}
 }
 
