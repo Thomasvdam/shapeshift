@@ -33,6 +33,7 @@ public class Controller : MonoBehaviour {
 		checkAxes ();
 		checkSquareButton ();
 		checkSquareButtonHeld ();
+		checkSquareButtonUp ();
 		checkTriangleButton ();
 		checkCircleButton ();
 		checkLeftBumperButton ();
