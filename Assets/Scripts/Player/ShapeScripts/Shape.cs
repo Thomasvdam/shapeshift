@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Shape : MonoBehaviour {
 
-	public float jumpModifier;
+	public float jumpStrength = 5f;
 	public float acceleration = 20f;
 	public float maxMovementSpeed = 20f;
 
@@ -62,7 +62,6 @@ public class Shape : MonoBehaviour {
 
 	virtual public void Move (float x, float y) {
 		this.direction = new Vector2 (x, y);
-		Debug.Log (direction);
 	}
 
 	virtual public void SquareHeld () {
@@ -75,7 +74,7 @@ public class Shape : MonoBehaviour {
 
 	virtual public void CrossPressed () {
 		if (ShapeUtils.IsOnPlatform (this.gameObject)) {
-			this.rigidBody.AddForce (Vector2.up * jumpModifier);
+			this.rigidBody.AddForce (Vector2.up * jumpStrength * 100);
 		}
 	}
 

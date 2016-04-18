@@ -20,7 +20,7 @@ public class Controller : MonoBehaviour {
 	public const string PS_PS4 = " button 12";
 	public const string TOUCH_PAD_PS4 = " button 13";
 
-	private Shape shape;
+	public Shape shape;
 	private Player player;
 
 	void Start() {

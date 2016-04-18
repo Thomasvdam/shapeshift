@@ -41,6 +41,7 @@ public class CircleShape : Shape {
 	}
 
 	public override void CustomEnd() {
+		Destroy(this.gameObject.GetComponent<CircleCollider2D> ());
 		Destroy(this.gameObject.GetComponent<GrappleBooster> ());
 		base.CustomEnd ();
 	}

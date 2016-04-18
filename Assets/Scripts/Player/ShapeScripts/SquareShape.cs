@@ -31,6 +31,7 @@ public class SquareShape : Shape {
 	}
 
 	override public void CustomEnd () {
+		Destroy (this.gameObject.GetComponent<BoxCollider2D> ());
 		Destroy (this.gameObject.GetComponent<Lunge>());
 		base.CustomEnd ();
 	}
