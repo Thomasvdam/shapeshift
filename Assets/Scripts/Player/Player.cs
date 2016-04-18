@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		this.currentShape = this.gameObject.AddComponent<TriangleShape> ();
 		this.controller = this.GetComponent<Controller> ();
+		controller.shape = currentShape;
 	}
 	
 	// Update is called once per frame
