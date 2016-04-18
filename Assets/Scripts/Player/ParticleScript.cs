@@ -13,7 +13,7 @@ public class ParticleScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!particles.IsAlive ()) {
-			Destroy (this);
+			Destroy (this.gameObject);
 		}
 	}
 }
