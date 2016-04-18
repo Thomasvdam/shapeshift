@@ -4,10 +4,11 @@ using System.Collections.Generic;
 
 public class BattleManager : MonoBehaviour {
 
-	public bool isTimedBattle = false;
-	public float timePassed = 0;
-	public float timeLimit;
+	public bool isTimedBattle = true;
+	public float timePassed = 0f;
+	public float timeLimit = 320f;
 	public GameObject playerPrefab;
+	public GameObject[] spawnPoints;
 
 	/**
 	 *	For the winscreen I propose we do it the same as in Goddown Showoff. A prefab that is an overlay on the screen.  
@@ -16,12 +17,10 @@ public class BattleManager : MonoBehaviour {
 	public GameObject winScreenPrefab;
 	private List<GameObject> players = new List<GameObject>();
 
-	private const float TIME_LIMIT_DEFAULT = 2f;
-	private const int PLAYER_LIMIT_DEFAULT = 4;
+	public int PLAYER_LIMIT = 4;
 
 	// Use this for initialization
 	void Awake () {
-		timeLimit = TIME_LIMIT_DEFAULT;
 		createPlayers ();
 	}
 	
@@ -66,7 +65,6 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void setWinScreenPrefab(List<Player> mostCoinsLeastDeaths){
-		Debug.Log ("count: " + mostCoinsLeastDeaths.Count);
 		if (mostCoinsLeastDeaths.Count > 1) {
 			string text = "WINNERS: ";
 			text += mostCoinsLeastDeaths[0].mId;
@@ -82,13 +80,18 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void createPlayers() {
-		for (int i = 0; i<PLAYER_LIMIT_DEFAULT; i++) {
-			players.Add(new GameObject());
-			players[i].AddComponent<Player>();
-			players[i].GetComponent<Player>().mId = i+1;
-			//players[i].AddComponent<SquareShape>();
-			//players[i].AddComponent<Controller>(); //Add this one last
-			//players[i].GetComponent<Controller>().mId = i+1;
+		for (int i = 0; i<PLAYER_LIMIT; i++) {
+			createPlayer(i);
 		}
+	}
+
+	private void createPlayer(int iterator) {
+		players.Add(new GameObject());
+		players[iterator].name = "Player" + (iterator + 1);
+		players[iterator].AddComponent<Player>();
+		players[iterator].GetComponent<Player>().mId = iterator+1;
+		players[iterator].transform.position = spawnPoints[iterator].transform.position;
+		//players[iterator].AddComponent<SquareShape>();
+		//players[iterator].AddComponent<Controller>(); //Add this one last
 	}
 }
