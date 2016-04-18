@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ForcePushProjectile : MonoBehaviour
 {
+	public Sprite lingerSprite;
 
 	public float lifeTime;
 	public float speed;
@@ -31,7 +32,17 @@ public class ForcePushProjectile : MonoBehaviour
 	}
 
 	void OnCollisionEnter2D (Collision2D other) {
-		this.expireTime = Time.time + lingerTime;
+		// Switch sprite to the inactive sprite
+		this.GetComponent<SpriteRenderer> ().sprite = lingerSprite;
+
+		// Make the push 'fizzle' when it hits a platform
+		if (other.gameObject.tag == "Platform") {
+			// Remove mass from Rigidbody to prevent pushes
+			this.GetComponent<Rigidbody2D> ().mass = 0;
+
+			// Remove the object after lingertime
+			this.expireTime = Time.time + lingerTime;
+		}
 	}
 }
 
