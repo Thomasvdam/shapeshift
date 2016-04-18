@@ -3,8 +3,6 @@ using System.Collections;
 
 public class Controller : MonoBehaviour {
 
-	//Controller 1 to 4
-	public int mId = 1; //Default id
 	public const string CONTROLLER_PREFIX = "joystick ";
 	
 	public const string SQUARE_PS4 = " button 0";
@@ -22,9 +20,11 @@ public class Controller : MonoBehaviour {
 	public const string PS_PS4 = " button 12";
 	public const string TOUCH_PAD_PS4 = " button 13";
 
-	private Shape shape;
+	public Shape shape;
+	public Player player;
 
 	void Start() {
+		player = gameObject.GetComponent<Player> ();
 		shape = gameObject.GetComponent<Shape> ();
 	}
 
@@ -44,24 +44,22 @@ public class Controller : MonoBehaviour {
 	}
 
 	private string getJoystickButton(string button) {
-		return CONTROLLER_PREFIX + mId + button;
+		return CONTROLLER_PREFIX + player.mId + button;
 	}
-	
+
 	private void checkAxes() {
-		float x = Input.GetAxisRaw (CONTROLLER_PREFIX + mId + " X axis");
-		float y = Input.GetAxisRaw (CONTROLLER_PREFIX + mId + " Y axis");
-		if (x == 0 && y == 0) {
-			return;
-		}
+		float x = getXAxisRaw ();
+		float y = Input.GetAxisRaw (CONTROLLER_PREFIX + player.mId + " Y axis");
+		if (x == 0 && y == 0) return;
 		shape.Move (x, y);
 	}
 
 	public float getXAxisRaw() {
-		return Input.GetAxisRaw (CONTROLLER_PREFIX + mId + " X axis");
+		return Input.GetAxisRaw (CONTROLLER_PREFIX + player.mId + " X axis");
 	}
 
 	public float getYAxisRawInverted() {
-		return -Input.GetAxisRaw (CONTROLLER_PREFIX + mId + " Y axis");
+		return -Input.GetAxisRaw (CONTROLLER_PREFIX + player.mId + " Y axis");
 	}
 
 	public bool getKeyDown(string ps4) {
