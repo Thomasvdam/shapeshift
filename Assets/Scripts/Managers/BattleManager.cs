@@ -86,11 +86,10 @@ public class BattleManager : MonoBehaviour {
 	}
 
 	private void createPlayer(int iterator) {
-		players.Add(new GameObject());
+		GameObject instantiated = (GameObject) Instantiate (playerPrefab, spawnPoints [iterator].transform.position, Quaternion.identity);
+		players.Add(instantiated);
 		players[iterator].name = "Player" + (iterator + 1);
-		players[iterator].AddComponent<Player>();
 		players[iterator].GetComponent<Player>().mId = iterator+1;
-		players[iterator].transform.position = spawnPoints[iterator].transform.position;
 		//players[iterator].AddComponent<SquareShape>();
 		//players[iterator].AddComponent<Controller>(); //Add this one last
 	}
