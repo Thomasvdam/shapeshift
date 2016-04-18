@@ -102,6 +102,10 @@ public class Shape : MonoBehaviour {
 		
 	}
 
+	virtual public void RightBumperUp () {
+
+	}
+
 	virtual public void RightTriggerPressed () {
 		
 	}

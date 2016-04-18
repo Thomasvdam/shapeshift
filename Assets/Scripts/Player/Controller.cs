@@ -39,6 +39,7 @@ public class Controller : MonoBehaviour {
 		checkLeftBumperButton ();
 		checkLeftTriggerButton ();
 		checkRightBumperButton ();
+		checkRightBumperButtonUp ();
 		checkRightTriggerButton ();
 	}
 
@@ -120,6 +121,12 @@ public class Controller : MonoBehaviour {
 	private void checkRightBumperButton() {
 		if (getKeyDown(RIGHT_BUMPER_PS4)) {
 			shape.RightBumperPressed();
+		}
+	}
+
+	private void checkRightBumperButtonUp() {
+		if (getKeyUp(RIGHT_BUMPER_PS4)) {
+			shape.RightBumperUp();
 		}
 	}
 

@@ -17,14 +17,14 @@ public class SquareShape : Shape {
 		lunge = this.GetComponent<Lunge> ();
 	}
 
-	override public void SquarePressed(){
+	override public void RightBumperPressed(){
 		if (Time.time <= this.cooldownTimeStamp) {
 			return;
 		}
 		lunge.LungeCharge ();
 	}
 
-	override public void SquareUp() {
+	override public void RightBumperUp() {
 		if (lunge.isCharging) {
 			lunge.LungeStart ();
 			this.cooldownTimeStamp = Time.time + this.forceCooldown;
