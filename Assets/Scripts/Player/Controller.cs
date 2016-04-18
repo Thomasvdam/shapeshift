@@ -60,7 +60,7 @@ public class Controller : MonoBehaviour {
 	}
 
 	public float getYAxisRaw() {
-		return Input.GetAxisRaw (CONTROLLER_PREFIX + mId + " Y axis");
+		return -Input.GetAxisRaw (CONTROLLER_PREFIX + mId + " Y axis");
 	}
 
 	public bool getKeyDown(string ps4) {
