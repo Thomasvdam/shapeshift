@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SquareShape : Shape {
 
+	public float forceCooldown = 1.5f;
+	private float cooldownTimeStamp;
 	private Lunge lunge;
 
 	override public void CustomUpdate () {
@@ -16,11 +18,17 @@ public class SquareShape : Shape {
 	}
 
 	override public void SquarePressed(){
+		if (Time.time <= this.cooldownTimeStamp) {
+			return;
+		}
 		lunge.LungeCharge ();
 	}
 
 	override public void SquareUp() {
-		lunge.LungeStart ();
+		if (lunge.isCharging) {
+			lunge.LungeStart ();
+			this.cooldownTimeStamp = Time.time + this.forceCooldown;
+		}
 	}
 
 	override public void MoveShape () {
@@ -28,15 +36,6 @@ public class SquareShape : Shape {
 			if (Mathf.Abs (direction.x) > 0.2f) {
 				this.rigidBody.AddForce(new Vector2(direction.x * acceleration, 0));
 			}
-		}
-	}
-
-	void OnCollisionEnter2D (Collision2D col) {
-		
-		if (col.gameObject.tag == "Player" && lunge.isLunging) {
-			col.collider.enabled = false;
-			StartCoroutine (lunge.FallDuration (col));
-			lunge.squareRb.velocity = Vector2.zero;
 		}
 	}
 }

@@ -41,6 +41,7 @@ public class Lunge : MonoBehaviour {
 
 			StartCoroutine( LungeTime ());
 		}
+		// TODO add cooldown.
 	}
 
 	// For the duration of the lunge
@@ -57,6 +58,15 @@ public class Lunge : MonoBehaviour {
 		yield return new WaitForSeconds (fallTime);
 		col.collider.enabled = true;
 		isLunging = false;
+	}
+
+	void OnCollisionEnter2D (Collision2D col) {
+		
+		if (col.gameObject.tag == "Player" && isLunging) {
+			col.collider.enabled = false;
+			StartCoroutine (FallDuration (col));
+			squareRb.velocity = Vector2.zero;
+		}
 	}
 }
 
