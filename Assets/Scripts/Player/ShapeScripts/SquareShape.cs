@@ -10,10 +10,10 @@ public class SquareShape : Shape {
 	}
 
 	override public void SquarePressed(){
-		lunge.LungeSide ();
+		lunge.LungeStart ();
 	}
 
-	override public void SquareHeld() {
+	override public void SquareUp() {
 		Debug.Log ("squareheld");
 	}
 
