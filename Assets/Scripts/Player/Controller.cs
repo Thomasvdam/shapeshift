@@ -59,7 +59,7 @@ public class Controller : MonoBehaviour {
 		return Input.GetAxisRaw (CONTROLLER_PREFIX + mId + " X axis");
 	}
 
-	public float getYAxisRaw() {
+	public float getYAxisRawInverted() {
 		return -Input.GetAxisRaw (CONTROLLER_PREFIX + mId + " Y axis");
 	}
 
