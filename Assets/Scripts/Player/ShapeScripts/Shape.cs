@@ -62,6 +62,7 @@ public class Shape : MonoBehaviour {
 
 	virtual public void Move (float x, float y) {
 		this.direction = new Vector2 (x, y);
+		Debug.Log (direction);
 	}
 
 	virtual public void SquarePressed () {
