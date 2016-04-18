@@ -65,24 +65,12 @@ public class Shape : MonoBehaviour {
 		Debug.Log (direction);
 	}
 
-	virtual public void SquarePressed () {
-		
-	}
-
 	virtual public void SquareHeld () {
 		
 	}
 
 	virtual public void SquareUp () {
 		
-	}
-
-	virtual public void TrianglePressed () {
-
-	}
-
-	virtual public void CirclePressed () {
-
 	}
 
 	virtual public void CrossPressed () {

@@ -15,7 +15,16 @@ public class SquareShape : Shape {
 
 	override public void CustomStart (){
 		base.CustomStart ();
-		gameObject.AddComponent<BoxCollider2D> ();
+		// Change sprite and animation.
+		this.GetComponent<Animator> ().Play("Square");
+
+		// Add a placeholder sprite so we can create a polygoncollider.
+		this.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Art/player/grey/squareGrey5");
+
+		// Add a collider to the shape.
+		this.gameObject.AddComponent<BoxCollider2D> ();
+
+		// Add custom code.
 		gameObject.AddComponent<Lunge> ();
 		lunge = this.GetComponent<Lunge> ();
 

@@ -23,9 +23,11 @@ public class Controller : MonoBehaviour {
 	public const string TOUCH_PAD_PS4 = " button 13";
 
 	private Shape shape;
+	private Player player;
 
 	void Start() {
 		shape = gameObject.GetComponent<Shape> ();
+		player = this.gameObject.GetComponent<Player> ();
 	}
 
 	void Update () {
@@ -84,7 +86,7 @@ public class Controller : MonoBehaviour {
 
 	private void checkSquareButton() {
 		if (getKeyDown(SQUARE_PS4)) {
-			shape.SquarePressed();
+			player.SquarePressed();
 		}
 	}
 
@@ -102,13 +104,13 @@ public class Controller : MonoBehaviour {
 
 	private void checkCircleButton() {
 		if (getKeyDown(CIRCLE_PS4)) {
-			shape.CirclePressed();
+			player.CirclePressed();
 		}
 	}
 
 	private void checkTriangleButton() {
 		if (getKeyDown(TRIANGLE_PS4)) {
-			shape.TrianglePressed();
+			player.TrianglePressed();
 		}
 	}
 
